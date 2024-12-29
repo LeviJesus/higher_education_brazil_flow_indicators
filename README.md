@@ -6,6 +6,8 @@ Este projeto visa analisar os indicadores de fluxo da educação superior no Bra
 
 A análise é focada no acompanhamento dos ingressantes no ensino superior do ano de 2014 durante 10 anos, até 2023. Os dados incluem informações sobre taxas de permanência, conclusão, desistência e outros indicadores relevantes para entender o fluxo dos estudantes no ensino superior brasileiro.
 
+Os dados são públicos e encontram-se disponíveis no site do INEP: https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/indicadores-educacionais/indicadores-de-fluxo-da-educacao-superior
+
 ## Estrutura do Projeto
 
 - `app/`
@@ -25,7 +27,9 @@ A análise é focada no acompanhamento dos ingressantes no ensino superior do an
 
 # Observações sobre o Projeto
 
-A ideia de construir um banco de dados no SQLite é para analisar possíveis tendências nos dados e aplicar algoritmos de machine learning futuramente. Isso permitirá uma análise mais profunda e a criação de modelos preditivos baseados nos indicadores de fluxo da educação superior.
+A ideia de construir um banco de dados no SQLite é para analisar possíveis tendências nos dados e aplicar algoritmos de machine learning futuramente. Isso permitirá uma análise mais profunda e eficiente, além da criação de modelos preditivos baseados nos indicadores de fluxo da educação superior. 
+
+Além disso, construir a base em SQLite nos permite rodar o app streamlit na nuvem sem precisar consumir um arquivo local pesado.
 
 ## Requisitos
 
@@ -44,7 +48,7 @@ A ideia de construir um banco de dados no SQLite é para analisar possíveis ten
 1. Clone o repositório:
    ```bash
    git clone https://github.com/seu-usuario/indicadores_fluxo_educacao_superior_brasil.git
-   cd indicadores-educacao-superior-brasil
+   cd indicadores-fluxo-educacao-superior-brasil
    ```
 
 2. Crie um ambiente virtual e instale as dependências:
