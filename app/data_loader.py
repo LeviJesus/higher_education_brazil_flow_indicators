@@ -3,7 +3,7 @@ import sqlite3
 
 def carregar_dados(file_path):
     # Conectar ao banco de dados
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('./data/database.db')
     
     # Carregar dados
     query = "SELECT * FROM student_trajectory_2014_2023"
