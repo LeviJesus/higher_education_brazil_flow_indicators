@@ -11,8 +11,8 @@ A análise é focada no acompanhamento dos ingressantes no ensino superior do an
 - `app/`
   - `streamlit_dashboard.py`: Interface de visualização dos dados utilizando Streamlit.
   - `data_loader.py`: Carrega e mapeia os dados para melhor entendimento.
-    - `assets/`
-      - `inep.png`: Imagem usada no aplicativo Streamlit.
+- `assets/`
+  - `inep.png`: Imagem usada no aplicativo Streamlit.
 - `data/`
   - `raw/`: Contém os dados brutos baixados.
   - `processed/`: Contém os dados processados prontos para análise.
@@ -43,7 +43,7 @@ A ideia de construir um banco de dados no SQLite é para analisar possíveis ten
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/indicadores-educacao-superior-brasil.git
+   git clone https://github.com/seu-usuario/indicadores_fluxo_educacao_superior_brasil.git
    cd indicadores-educacao-superior-brasil
    ```
 
