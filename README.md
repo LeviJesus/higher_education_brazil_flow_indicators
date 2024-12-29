@@ -47,7 +47,7 @@ Além disso, construir a base em SQLite nos permite rodar o app streamlit na nuv
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/indicadores_fluxo_educacao_superior_brasil.git
+   git clone https://github.com/LeviJesus/indicadores_fluxo_educacao_superior_brasil.git
    cd indicadores-fluxo-educacao-superior-brasil
    ```
 
