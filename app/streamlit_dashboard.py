@@ -4,7 +4,7 @@ import plotly.express as px
 from data_loader import carregar_dados
 
 # Carregar dados
-dados = carregar_dados("../data/processed/student_trajectory_2014_2023.csv")
+dados = carregar_dados("./data/processed/student_trajectory_2014_2023.csv")
 
 # Significado dos indicadores selecionados
 significado_indicadores = {
@@ -16,7 +16,7 @@ significado_indicadores = {
 }
 
 # Adicionar imagem no topo do sidebar
-st.sidebar.image("../assets/inep.png", use_container_width =False)
+st.sidebar.image("./assets/inep.png", use_container_width =False)
 
 # Filtros na barra lateral
 st.sidebar.title("Filtros")

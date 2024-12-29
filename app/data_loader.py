@@ -1,8 +1,16 @@
 import pandas as pd
+import sqlite3
 
 def carregar_dados(file_path):
+    # Conectar ao banco de dados
+    conn = sqlite3.connect('database.db')
+    
     # Carregar dados
-    dados = pd.read_csv(file_path)
+    query = "SELECT * FROM student_trajectory_2014_2023"
+    dados = pd.read_sql_query(query, conn)
+    
+    # Fechar a conexão
+    conn.close()
 
     # Mapear categorias para melhor entendimento
     mapa_categoria_univ = {

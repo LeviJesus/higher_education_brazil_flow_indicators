@@ -1,5 +1,5 @@
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from pathlib import Path
 
 class DataProcessor:
@@ -17,6 +17,11 @@ class DataProcessor:
 
         try:
             print(f"Carregando dados de {file_path} na tabela '{table_name}' no banco de dados...")
+
+            # Clear existing table data
+            with engine.connect() as connection:
+                connection.execute(text(f"DELETE FROM {table_name}"))
+                print(f"Tabela '{table_name}' limpa antes de inserir novos dados.")
 
             # Converter Excel para CSV
             df = pd.read_excel(file_path, skiprows=8, header=0, sheet_name=sheet_name, engine='openpyxl')

@@ -51,7 +51,8 @@ def initialize_database():
 
 def main():
     # Passo 1: Baixar e Extrair
-    downloader = DataDownloader(url="https://download.inep.gov.br/informacoes_estatisticas/indicadores_educacionais/indicadores_fluxo_es_2014-2023.zip")
+    downloader = DataDownloader(
+        url="http://download.inep.gov.br/informacoes_estatisticas/indicadores_educacionais/indicadores_fluxo_es_2014-2023.zip")
     downloader.download()
     downloader.extract()
 
