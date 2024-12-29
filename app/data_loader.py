@@ -1,7 +1,7 @@
 import pandas as pd
 import sqlite3
 
-def carregar_dados(file_path):
+def carregar_dados():
     # Conectar ao banco de dados
     conn = sqlite3.connect('./data/database.db')
     
