@@ -83,7 +83,9 @@ dados_agrupados = dados_filtrados.groupby(
 
 # Plotagem
 st.title("INEP - Indicadores de Fluxo da Educação Superior no Brasil")
+st.write("Este aplicativo mostra os indicadores de acompanhamento da jornada acadêmica de 10 anos dos estudantes brasileiros que ingressaram no ensino superior em 2014.")
 st.subheader(f"{significado_indicadores[indicador_selecionado]} - {indicador_selecionado}")
+
 
 fig = px.line(
     dados_agrupados,
@@ -97,7 +99,7 @@ fig = px.line(
 st.plotly_chart(fig)
 
 # Links adicionais
-with open("../data/raw/Dicionário_acompanhamento_trajetória.docx", "rb") as file:
+with open("./data/Dicionário_acompanhamento_trajetória.docx", "rb") as file:
     st.sidebar.download_button(
         label="Download Dicionário de Dados",
         data=file,
@@ -107,7 +109,6 @@ with open("../data/raw/Dicionário_acompanhamento_trajetória.docx", "rb") as fi
     )
 
 st.sidebar.markdown("[Fonte e Metodologia - INEP](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/indicadores-educacionais/indicadores-de-fluxo-da-educacao-superior)")
-
 st.sidebar.write("Feito com ❤️ usando Streamlit")
 
 # Remover "Deploy" e os três pontinhos

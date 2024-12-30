@@ -8,6 +8,12 @@ A análise é focada no acompanhamento dos ingressantes no ensino superior do an
 
 Os dados são públicos e encontram-se disponíveis no site do INEP: https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/indicadores-educacionais/indicadores-de-fluxo-da-educacao-superior
 
+## Aplicativo Streamlit
+
+Caso você não queira rodar o projeto localmente em sua máquina, você pode acessar o aplicativo Streamlit e interagir com ele, fazendo suas próprias análises através do link abaixo: 
+
+https://indicadores-fluxo-educacao-superior-brasil.streamlit.app/
+
 ## Estrutura do Projeto
 
 - `app/`
