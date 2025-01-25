@@ -12,7 +12,7 @@ The data is public and available on the INEP website: https://www.gov.br/inep/pt
 
 If you do not want to run the project locally on your machine, you can access the Streamlit application and interact with it, making your own analyses through the link below:
 
-https://indicadores-fluxo-educacao-superior-brasil.streamlit.app/
+https://higher-education-brazil-flow-indicators.streamlit.app/
 
 ## Project Structure
 
