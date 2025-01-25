@@ -98,11 +98,11 @@ fig = px.line(
 st.plotly_chart(fig)
 
 # Additional links
-with open("./data/Data_Dictionary.docx", "rb") as file:
+with open("./data/Dicionário_acompanhamento_trajetória.docx", "rb") as file:
     st.sidebar.download_button(
         label="Download Data Dictionary",
         data=file,
-        file_name="Data_Dictionary.docx",
+        file_name="Dicionário_acompanhamento_trajetória.docx",
         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         use_container_width=True
     )
