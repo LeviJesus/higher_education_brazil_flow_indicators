@@ -1,117 +1,116 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from data_loader import carregar_dados
+from data_loader import load_data
 
-# Carregar dados
-dados = carregar_dados()
+# Load data
+data = load_data()
 
-# Significado dos indicadores selecionados
-significado_indicadores = {
-    "TAP": "Taxa de Permanência",
-    "TCA": "Taxa de Conclusão Acumulada",
-    "TDA": "Taxa de Desistência Acumulada",
-    "TCAN": "Taxa de Conclusão Anual",
-    "TADA": "Taxa de Desistência Anual", 
+# Meaning of selected indicators
+indicator_meanings = {
+    "TAP": "Retention Rate",
+    "TCA": "Cumulative Completion Rate",
+    "TDA": "Cumulative Dropout Rate",
+    "TCAN": "Annual Completion Rate",
+    "TADA": "Annual Dropout Rate", 
 }
 
-# Adicionar imagem no topo do sidebar
-st.sidebar.image("./assets/inep.png", use_container_width =False)
+# Add image at the top of the sidebar
+st.sidebar.image("./assets/inep.png", use_container_width=False)
 
-# Filtros na barra lateral
-st.sidebar.title("Filtros")
-anos_selecionados = st.sidebar.slider("Selecione o Intervalo de Anos", 2014, 2023, (2014, 2023))
-indicador_selecionado = st.sidebar.selectbox(
-    "Escolha um Indicador de Trajetória",
+# Filters in the sidebar
+st.sidebar.title("Filters")
+selected_years = st.sidebar.slider("Select Year Range", 2014, 2023, (2014, 2023))
+selected_indicator = st.sidebar.selectbox(
+    "Choose a Trajectory Indicator",
     ["TAP", "TCA", "TDA", "TCAN", "TADA"],
 )
 
-caracteristica_selecionada = st.sidebar.selectbox(
-    "Escolha uma Característica para Análise",
+selected_characteristic = st.sidebar.selectbox(
+    "Choose a Characteristic for Analysis",
     options=[
-        "Categoria Universidade",
-        "Grau Acadêmico", 
-        "Modalidade de Ensino",
-        "Região"
+        "University Category",
+        "Academic Degree", 
+        "Teaching Modality",
+        "Region"
     ],
     index=0
 )
 
-# Filtros adicionais com dependência entre si
-unidades_federativas_selecionadas = st.sidebar.multiselect(
-    "Filtre por Estado",
-    options=dados["Unidade Federativa"].unique(),
+# Additional filters with dependency
+selected_states = st.sidebar.multiselect(
+    "Filter by State",
+    options=data["State"].unique(),
     default=[]
 )
 
-# Filtrar dados com base nas unidades federativas selecionadas
-dados_filtrados_uf = dados[dados["Unidade Federativa"].isin(unidades_federativas_selecionadas)] if unidades_federativas_selecionadas else dados
+# Filter data based on selected states
+filtered_data_state = data[data["State"].isin(selected_states)] if selected_states else data
 
-universidades_selecionadas = st.sidebar.multiselect(
-    "Filtre por Universidade",
-    options=dados_filtrados_uf["Nome da Universidade"].unique(),
+selected_universities = st.sidebar.multiselect(
+    "Filter by University",
+    options=filtered_data_state["University Name"].unique(),
     default=[]
 )
 
-# Filtrar dados com base nas universidades selecionadas
-dados_filtrados_uni = dados_filtrados_uf[dados_filtrados_uf["Nome da Universidade"].isin(universidades_selecionadas)] if universidades_selecionadas else dados_filtrados_uf
+# Filter data based on selected universities
+filtered_data_uni = filtered_data_state[filtered_data_state["University Name"].isin(selected_universities)] if selected_universities else filtered_data_state
 
-cursos_selecionados = st.sidebar.multiselect(
-    "Filtre por Curso",
-    options=dados_filtrados_uni["Nome do Curso"].unique(),
+selected_courses = st.sidebar.multiselect(
+    "Filter by Course",
+    options=filtered_data_uni["Course Name"].unique(),
     default=[]
 )
 
-# Filtrar dados com base nas seleções do usuário
-dados_filtrados = dados[
-    (dados["NU_ANO_REFERENCIA"].between(anos_selecionados[0], anos_selecionados[1])) &
-    (dados[indicador_selecionado].notnull())
+# Filter data based on user selections
+filtered_data = data[
+    (data["NU_ANO_REFERENCIA"].between(selected_years[0], selected_years[1])) &
+    (data[selected_indicator].notnull())
 ]
 
-if unidades_federativas_selecionadas:
-    dados_filtrados = dados_filtrados[dados_filtrados["Unidade Federativa"].isin(unidades_federativas_selecionadas)]
+if selected_states:
+    filtered_data = filtered_data[filtered_data["State"].isin(selected_states)]
 
-if universidades_selecionadas:
-    dados_filtrados = dados_filtrados[dados_filtrados["Nome da Universidade"].isin(universidades_selecionadas)]
+if selected_universities:
+    filtered_data = filtered_data[filtered_data["University Name"].isin(selected_universities)]
 
-if cursos_selecionados:
-    dados_filtrados = dados_filtrados[dados_filtrados["Nome do Curso"].isin(cursos_selecionados)]
+if selected_courses:
+    filtered_data = filtered_data[filtered_data["Course Name"].isin(selected_courses)]
 
-# Agrupar dados por características selecionadas e ano
-dados_agrupados = dados_filtrados.groupby(
-        ["NU_ANO_REFERENCIA", caracteristica_selecionada])[indicador_selecionado].mean().reset_index()
+# Group data by selected characteristics and year
+grouped_data = filtered_data.groupby(
+        ["NU_ANO_REFERENCIA", selected_characteristic])[selected_indicator].mean().reset_index()
 
-# Plotagem
-st.title("INEP - Indicadores de Fluxo da Educação Superior no Brasil")
-st.write("Este aplicativo mostra os indicadores de acompanhamento da jornada acadêmica de 10 anos dos estudantes brasileiros que ingressaram no ensino superior em 2014.")
-st.subheader(f"{significado_indicadores[indicador_selecionado]} - {indicador_selecionado}")
-
+# Plotting
+st.title("INEP - Higher Education Flow Indicators in Brazil")
+st.write("This application shows the indicators of the 10-year academic journey of Brazilian students who entered higher education in 2014.")
+st.subheader(f"{indicator_meanings[selected_indicator]} - {selected_indicator}")
 
 fig = px.line(
-    dados_agrupados,
+    grouped_data,
     x="NU_ANO_REFERENCIA",
-    y=indicador_selecionado,
-    color=caracteristica_selecionada,
-    title=f"Evolução da média ao longo dos anos",
-    labels={"NU_ANO_REFERENCIA": "Ano de Referência", indicador_selecionado: indicador_selecionado}
+    y=selected_indicator,
+    color=selected_characteristic,
+    title=f"Average Evolution Over the Years",
+    labels={"NU_ANO_REFERENCIA": "Reference Year", selected_indicator: selected_indicator}
 )
 
 st.plotly_chart(fig)
 
-# Links adicionais
-with open("./data/Dicionário_acompanhamento_trajetória.docx", "rb") as file:
+# Additional links
+with open("./data/Data_Dictionary.docx", "rb") as file:
     st.sidebar.download_button(
-        label="Download Dicionário de Dados",
+        label="Download Data Dictionary",
         data=file,
-        file_name="Dicionário_acompanhamento_trajetória.docx",
+        file_name="Data_Dictionary.docx",
         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         use_container_width=True
     )
 
-st.sidebar.markdown("[Fonte e Metodologia - INEP](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/indicadores-educacionais/indicadores-de-fluxo-da-educacao-superior)")
-st.sidebar.write("Feito com ❤️ usando Streamlit")
+st.sidebar.markdown("[Source and Methodology - INEP](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/indicadores-educacionais/indicadores-de-fluxo-da-educacao-superior)")
+st.sidebar.write("Made with 🦾 using Streamlit")
 
-# Remover "Deploy" e os três pontinhos
+# Remove "Deploy" and the three dots
 hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}

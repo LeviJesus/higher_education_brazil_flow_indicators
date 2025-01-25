@@ -1,47 +1,47 @@
 import pandas as pd
 import sqlite3
 
-def carregar_dados():
-    # Conectar ao banco de dados
+def load_data():
+    # Connect to the database
     conn = sqlite3.connect('./data/database.db')
     
-    # Carregar dados
+    # Load data
     query = "SELECT * FROM student_trajectory_2014_2023"
-    dados = pd.read_sql_query(query, conn)
+    data = pd.read_sql_query(query, conn)
     
-    # Fechar a conexão
+    # Close the connection
     conn.close()
 
-    # Mapear categorias para melhor entendimento
-    mapa_categoria_univ = {
-        1: "Pública Federal",
-        2: "Pública Estadual",
-        3: "Pública Municipal",
-        4: "Privada c/ Fins Lucrativos",
-        5: "Privada s/ Fins Lucrativos",
-        7: "Especial"
+    # Map categories for better understanding
+    university_category_map = {
+        1: "Federal Public",
+        2: "State Public",
+        3: "Municipal Public",
+        4: "Private For-Profit",
+        5: "Private Non-Profit",
+        7: "Special"
     }
 
-    mapa_categoria_cursos = {
-        1: "Bacharelado",
-        2: "Licenciatura",
-        3: "Tecnológico",
+    course_category_map = {
+        1: "Bachelor",
+        2: "Licentiate",
+        3: "Technological",
     }
 
-    mapa_categoria_mod = {
-        1: "Presencial",
-        2: "EaD"
+    modality_category_map = {
+        1: "In-Person",
+        2: "Distance Learning"
     }
 
-    mapa_categoria_regiao = {
-        1: "Norte",
-        2: "Nordeste",
-        3: "Sudeste",
-        4: "Sul",
-        5: "Centro-Oeste"
+    region_category_map = {
+        1: "North",
+        2: "Northeast",
+        3: "Southeast",
+        4: "South",
+        5: "Central-West"
     }
 
-    mapa_unidades_federativas = {
+    state_map = {
         11: "Rondônia",
         12: "Acre",
         13: "Amazonas",
@@ -68,27 +68,27 @@ def carregar_dados():
         50: "Mato Grosso do Sul",
         51: "Mato Grosso",
         52: "Goiás",
-        53: "Distrito Federal"
+        53: "Federal District"
     }
 
-    dados["TP_CATEGORIA_ADMINISTRATIVA"] = dados["TP_CATEGORIA_ADMINISTRATIVA"].map(mapa_categoria_univ)
-    dados["TP_GRAU_ACADEMICO"] = dados["TP_GRAU_ACADEMICO"].map(mapa_categoria_cursos)
-    dados["TP_MODALIDADE_ENSINO"] = dados["TP_MODALIDADE_ENSINO"].map(mapa_categoria_mod)
-    dados["CO_REGIAO"] = dados["CO_REGIAO"].map(mapa_categoria_regiao)
-    dados["CO_UF"] = dados["CO_UF"].map(mapa_unidades_federativas)
+    data["TP_CATEGORIA_ADMINISTRATIVA"] = data["TP_CATEGORIA_ADMINISTRATIVA"].map(university_category_map)
+    data["TP_GRAU_ACADEMICO"] = data["TP_GRAU_ACADEMICO"].map(course_category_map)
+    data["TP_MODALIDADE_ENSINO"] = data["TP_MODALIDADE_ENSINO"].map(modality_category_map)
+    data["CO_REGIAO"] = data["CO_REGIAO"].map(region_category_map)
+    data["CO_UF"] = data["CO_UF"].map(state_map)
     
-    dados.rename(columns={
-        "NO_IES": "Nome da Universidade",
-        "TP_CATEGORIA_ADMINISTRATIVA": "Categoria Universidade",
-        "NO_CURSO": "Nome do Curso",
-        "CO_REGIAO": "Região",
-        "CO_UF": "Unidade Federativa",
-        "TP_GRAU_ACADEMICO": "Grau Acadêmico",
-        "TP_MODALIDADE_ENSINO": "Modalidade de Ensino",
-        "QT_PERMANENCIA": "Quantidade de Permanência",
-        "QT_CONCLUINTE": "Quantidade de Concluintes",
-        "QT_DESISTENCIA": "Quantidade de Desistências",
-        "QT_FALECIDO": "Quantidade de Falecidos"
+    data.rename(columns={
+        "NO_IES": "University Name",
+        "TP_CATEGORIA_ADMINISTRATIVA": "University Category",
+        "NO_CURSO": "Course Name",
+        "CO_REGIAO": "Region",
+        "CO_UF": "State",
+        "TP_GRAU_ACADEMICO": "Academic Degree",
+        "TP_MODALIDADE_ENSINO": "Teaching Modality",
+        "QT_PERMANENCIA": "Permanence Quantity",
+        "QT_CONCLUINTE": "Graduate Quantity",
+        "QT_DESISTENCIA": "Dropout Quantity",
+        "QT_FALECIDO": "Deceased Quantity"
     }, inplace=True)
 
-    return dados
+    return data

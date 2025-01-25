@@ -7,21 +7,21 @@ class DatabaseManager:
         self.connection = None
 
     def connect(self):
-        """Conectar ao banco de dados SQLite."""
+        """Connect to the SQLite database."""
         self.connection = sqlite3.connect(self.db_path)
         return self.connection
 
     def create_table(self, table_name, schema):
-        """Criar uma tabela se ela não existir."""
+        """Create a table if it does not exist."""
         try:
             with self.connection:
                 self.connection.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({schema})")
-                print(f"Tabela '{table_name}' está pronta.")
+                print(f"Table '{table_name}' is ready.")
         except sqlite3.Error as e:
-            print(f"Erro ao criar tabela: {e}")
+            print(f"Error creating table: {e}")
 
     def close(self):
-        """Fechar a conexão com o banco de dados."""
+        """Close the database connection."""
         if self.connection:
             self.connection.close()
-            print("Conexão com o banco de dados fechada.")
+            print("Database connection closed.")

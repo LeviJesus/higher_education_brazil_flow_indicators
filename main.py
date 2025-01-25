@@ -4,11 +4,11 @@ from scripts.data_processor import DataProcessor
 from scripts.db_manager import DatabaseManager
 
 def initialize_database():
-    """Configurar o banco de dados SQLite e criar a tabela necessária."""
+    """Set up the SQLite database and create the necessary table."""
     db_manager = DatabaseManager()
     conn = db_manager.connect()
 
-    # Definição do esquema para a tabela
+    # Table schema definition
     schema = """
         CO_IES INTEGER,
         NO_IES TEXT,
@@ -43,21 +43,21 @@ def initialize_database():
         TADA REAL
     """
 
-    # Criar a tabela
+    # Create the table
     db_manager.create_table("student_trajectory_2014_2023", schema)
 
-    # Fechar conexão
+    # Close connection
     db_manager.close()
 
 def main():
-    # Passo 1: Baixar e Extrair
+    # Step 1: Download and Extract
     downloader = DataDownloader(
         url="http://download.inep.gov.br/informacoes_estatisticas/indicadores_educacionais/indicadores_fluxo_es_2014-2023.zip")
     downloader.download()
     downloader.extract()
 
-    # Passo 2: Inicializar Banco de Dados e Processar Dados
-    print("Inicializando banco de dados...")
+    # Step 2: Initialize Database and Process Data
+    print("Initializing database...")
     initialize_database()
 
     processor = DataProcessor()

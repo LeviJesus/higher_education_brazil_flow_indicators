@@ -1,46 +1,46 @@
-# Indicadores de Fluxo da Educação Superior no Brasil
+# Higher Education Flow Indicators in Brazil
 
-Este projeto visa analisar os indicadores de fluxo da educação superior no Brasil utilizando dados do INEP. O projeto inclui scripts para baixar, processar e visualizar os dados.
+This project aims to analyze the flow indicators of higher education in Brazil using data from INEP. The project includes scripts to download, process, and visualize the data.
 
-## Escopo da Análise
+## Scope of Analysis
 
-A análise é focada no acompanhamento dos ingressantes no ensino superior do ano de 2014 durante 10 anos, até 2023. Os dados incluem informações sobre taxas de permanência, conclusão, desistência e outros indicadores relevantes para entender o fluxo dos estudantes no ensino superior brasileiro.
+The analysis focuses on tracking higher education entrants from the year 2014 over 10 years, until 2023. The data includes information on retention rates, completion rates, dropout rates, and other relevant indicators to understand the flow of students in Brazilian higher education.
 
-Os dados são públicos e encontram-se disponíveis no site do INEP: https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/indicadores-educacionais/indicadores-de-fluxo-da-educacao-superior
+The data is public and available on the INEP website: https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/indicadores-educacionais/indicadores-de-fluxo-da-educacao-superior
 
-## Aplicativo Streamlit
+## Streamlit Application
 
-Caso você não queira rodar o projeto localmente em sua máquina, você pode acessar o aplicativo Streamlit e interagir com ele, fazendo suas próprias análises através do link abaixo: 
+If you do not want to run the project locally on your machine, you can access the Streamlit application and interact with it, making your own analyses through the link below:
 
 https://indicadores-fluxo-educacao-superior-brasil.streamlit.app/
 
-## Estrutura do Projeto
+## Project Structure
 
 - `app/`
-  - `streamlit_dashboard.py`: Interface de visualização dos dados utilizando Streamlit.
-  - `data_loader.py`: Carrega e mapeia os dados para melhor entendimento.
+  - `streamlit_dashboard.py`: Data visualization interface using Streamlit.
+  - `data_loader.py`: Loads and maps the data for better understanding.
 - `assets/`
-  - `inep.png`: Imagem usada no aplicativo Streamlit.
+  - `inep.png`: Image used in the Streamlit application.
 - `data/`
-  - `raw/`: Contém os dados brutos baixados.
-  - `processed/`: Contém os dados processados prontos para análise.
-  - `database.db`: Base de dados criada no SQLite para análises e processamentos.
+  - `raw/`: Contains the downloaded raw data.
+  - `processed/`: Contains the processed data ready for analysis.
+  - `database.db`: Database created in SQLite for analyses and processing.
 - `scripts/`
-  - `db_manager.py`: Gerencia a conexão e operações com o banco de dados SQLite.
-  - `data_processor.py`: Processa os dados brutos e os salva no banco de dados.
-  - `data_downloader.py`: Baixa e extrai os dados do INEP.
-- `main.py`: Script principal para executar o fluxo completo de download, processamento e armazenamento dos dados.
+  - `db_manager.py`: Manages the connection and operations with the SQLite database.
+  - `data_processor.py`: Processes the raw data and saves it to the database.
+  - `data_downloader.py`: Downloads and extracts data from INEP.
+- `main.py`: Main script to execute the complete flow of downloading, processing, and storing the data.
 
-# Observações sobre o Projeto
+# Project Notes
 
-A ideia de construir um banco de dados no SQLite é para analisar possíveis tendências nos dados e aplicar algoritmos de machine learning futuramente. Isso permitirá uma análise mais profunda e eficiente, além da criação de modelos preditivos baseados nos indicadores de fluxo da educação superior. 
+The idea of building a database in SQLite is to analyze possible trends in the data and apply machine learning algorithms in the future. This will allow for deeper and more efficient analysis, as well as the creation of predictive models based on higher education flow indicators.
 
-Além disso, construir a base em SQLite nos permite rodar o app streamlit na nuvem sem precisar consumir um arquivo local pesado.
+Additionally, building the database in SQLite allows us to run the Streamlit app in the cloud without needing to consume a heavy local file.
 
-## Requisitos
+## Requirements
 
 - Python 3.8+
-- Bibliotecas Python:
+- Python Libraries:
   - `pandas`
   - `sqlalchemy`
   - `requests`
@@ -49,34 +49,33 @@ Além disso, construir a base em SQLite nos permite rodar o app streamlit na nuv
   - `plotly`
   - `openpyxl`
 
-## Instalação
+## Installation
 
-1. Clone o repositório:
+1. Clone the repository:
    ```bash
    git clone https://github.com/LeviJesus/indicadores_fluxo_educacao_superior_brasil.git
    cd indicadores-fluxo-educacao-superior-brasil
    ```
 
-2. Crie um ambiente virtual e instale as dependências:
+2. Create a virtual environment and install the dependencies:
    ```bash
    python -m venv venv
-   source venv/bin/activate  # No Windows use `venv\Scripts\activate`
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    pip install -r requirements.txt
    ```
 
-## Uso
+## Usage
 
-1. Execute o script principal para baixar, processar e armazenar os dados:
+1. Run the main script to download, process, and store the data:
    ```bash
    python main.py
    ```
 
-2. Inicie o dashboard do Streamlit para visualizar os dados:
+2. Start the Streamlit dashboard to visualize the data:
    ```bash
    streamlit run app/streamlit_dashboard.py
    ```
 
+## Contribution
 
-## Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
+Contributions are welcome! Feel free to open issues and pull requests.
